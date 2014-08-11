@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+      .tasks {
+        background: #aaa;
+        padding: 30px;
+        color: #777;
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+    <script type="application/javascript" src="jquery-2.1.1.min.js"></script>
+    <script type="application/javascript" src="underscore-min.js"></script>
+
+    <script type="text/template" id="task_template">
+      <ul>
+        <li>
+          
+          <h2><%= task.name %></h2>
+          <div class="status"><%= task.status %></div>
+        </li>
+      </ul>
+    </script>
+
+
+
+    <script type="application/javascript">
+      var json_data = {
+        search: "complete",
+        input: "complete",
+        profile: "incomplete"
+      };
+
+      function populate_tasks(data) {
+        var temp = $('#task_template');
+        var tempFn = _.template(temp.html());
+        console.log(data);
+
+      }
+
+      $(document).ready(function() {
+          $.ajax({
+            url: "localhost:8000/json-stuff.js",
+            success: function(datar, status, err) {
+            debugger;
+              alert(datar);
+            }
+          });
+          //populate_tasks(json_data);
+      });
+
+    </script>
+
+  </head>
+
+  <body>
+    <section class="tasks">
+      <ul>
+      </ul>
+
+    </section>
+
+  </body>
+
+
+</html>
