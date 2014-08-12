@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+
+      .group:after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+      .tasks {
+        background: #ddd;
+        padding: 30px;
+        color: #777;
+        width: 200px;
+        height: 200px;
+      }
+
+      .tasks ul {
+        list-style: none;
+        width: 400px
+      }
+
+      .tasks ul h2 {
+        float: left
+      }
+    </style>
+    <script type=text/javascript src="{{
+        url_for('static', filename='jquery.js') }}"></script>
+        <script type=text/javascript src="{{
+          url_for('static', filename='underscore.js') }}" ></script>
+
+    <script type="text/template" id="task_template">
+      <ul>
+        <% for (task in tasks) { %>
+          <li class="group">
+            <h2><%= task %></h2>
+            <div class="status"><%= tasks[task] %></div>
+          </li>
+          <% } %>
+      </ul>
+    </script>
+
+
+
+    <script type="application/javascript">
+      var json_data = {
+        search: "complete",
+        input: "complete",
+        profile: "incomplete"
+      };
+
+      function populate_tasks(data) {
+        var temp = $('#task_template');
+        var tempFn = _.template(temp.html());
+        task_status = data.task_status;
+        var renderedContent = tempFn({
+            tasks: task_status
+          });
+        $('.tasks').html(renderedContent);
+        console.log(task_status);
+        debugger
+
+      }
+
+
+      $(document).ready(function() {
+          $.ajax({
+            url: "http://127.0.0.1:5000/_tasks",
+            success: function(data, status, err) {
+              populate_tasks(data);
+            }
+          });
+      });
+
+    </script>
+
+  </head>
+
+  <body>
+    <section class="tasks">
+    </section>
+
+  </body>
+
+
+</html>

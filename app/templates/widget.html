@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+
+      html {
+        font-family: sans-serif;
+      }
+
+      .tasks div, h2, ul, li {
+        display: block;
+        margin: 0;
+        padding: 0;
+        font: inherit;
+      }
+
+      .group:after {
+        display: block;
+        content: "";
+        clear: both;
+      }
+
+      .tasks {
+        padding: 20px;
+        color: #777;
+        width: 240px;
+        font-size: 15px;
+      }
+
+      .tasks ul {
+        display: block;
+        margin: auto;
+        padding: 15px 25px 25px 25px;
+        background: #eee;
+        list-style: none;
+      }
+
+      .tasks .status {
+        float: right;
+      }
+
+      .tasks li {
+        margin-top: 10px;
+      }
+
+      .tasks h2 {
+        float: left;
+        font-weight: bold;
+        color: #444;
+      }
+
+
+    </style>
+    <script type=text/javascript src="{{
+        url_for('static', filename='jquery.js') }}"></script>
+        <script type=text/javascript src="{{
+          url_for('static', filename='underscore.js') }}" ></script>
+
+    <script type="text/template" id="task_template">
+      <ul>
+        <% for (task in tasks) { %>
+          <li class="group">
+            <h2><%= task + ":" %></h2>
+            <div class="status"><%= tasks[task] %></div>
+          </li>
+          <% } %>
+      </ul>
+    </script>
+
+
+
+    <script type="application/javascript">
+      var json_data = {
+        search: "complete",
+        input: "complete",
+        profile: "incomplete"
+      };
+
+      function populate_tasks(data) {
+        var temp = $('#task_template');
+        var tempFn = _.template(temp.html());
+        task_status = data.task_status;
+        var renderedContent = tempFn({
+            tasks: task_status
+          });
+        $('.tasks').html(renderedContent);
+        console.log(task_status);
+
+      }
+
+
+      $(document).ready(function() {
+          $.ajax({
+            url: "http://127.0.0.1:5000/_tasks",
+            success: function(data, status, err) {
+              populate_tasks(data);
+            }
+          });
+      });
+
+    </script>
+
+  </head>
+
+  <body>
+    <section class="tasks">
+    </section>
+
+  </body>
+
+
+</html>
