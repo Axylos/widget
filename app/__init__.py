@@ -15,4 +15,11 @@ def tasks():
             "Opportunities": "incomplete"} }
   return jsonify(data)
 
+@app.route('/_othertasks')
+def othertasks():
+	data ={"task_status": {"Search": "incomplete",
+				"Transaction Profile": "complete",
+				"Profile": "incomplete" } }
+	return jsonify(data)
+
 

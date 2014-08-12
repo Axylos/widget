@@ -24,7 +24,7 @@
       .tasks {
         padding: 20px;
         color: #777;
-        width: 240px;
+        width: 260px;
         font-size: 15px;
       }
 
@@ -85,10 +85,7 @@
             tasks: task_status
           });
         $('.tasks').html(renderedContent);
-        console.log(task_status);
-
       }
-
 
       $(document).ready(function() {
           $.ajax({
@@ -97,6 +94,20 @@
               populate_tasks(data);
             }
           });
+          
+          $(window).keydown(function(e) {
+            
+            if(e.which == 13) {
+              $.ajax({
+                url: "http://127.0.0.1:5000/_othertasks",
+                success: function(data, status, err) {
+                  populate_tasks(data);
+                }
+              });
+            }
+          })
+
+	
       });
 
     </script>
