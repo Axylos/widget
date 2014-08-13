@@ -2,10 +2,11 @@
 
 <html>
   <head>
+
     <style>
 
       html {
-        font-family: sans-serif;
+        font-family: Courier New;
       }
 
       .tasks div, h2, ul, li {
@@ -49,9 +50,8 @@
         font-weight: bold;
         color: #444;
       }
-
-
     </style>
+
     <script type=text/javascript src="{{
         url_for('static', filename='jquery.js') }}"></script>
         <script type=text/javascript src="{{
@@ -59,7 +59,7 @@
 
     <script type="text/template" id="task_template">
       <ul>
-        <% for (task in tasks) { %>
+        <% for(task in tasks) { %>
           <li class="group">
             <h2><%= task + ":" %></h2>
             <div class="status"><%= tasks[task] %></div>
@@ -67,8 +67,6 @@
           <% } %>
       </ul>
     </script>
-
-
 
     <script type="application/javascript">
       var json_data = {
@@ -97,7 +95,7 @@
           
           $(window).keydown(function(e) {
             
-            if(e.which == 13) {
+            if(e.which==13) {
               $.ajax({
                 url: "http://127.0.0.1:5000/_othertasks",
                 success: function(data, status, err) {
@@ -106,19 +104,12 @@
               });
             }
           })
-
-	
       });
-
     </script>
 
   </head>
-
   <body>
     <section class="tasks">
     </section>
-
   </body>
-
-
 </html>
